@@ -271,6 +271,11 @@ boolean MPR121::changed(byte sensor) {
   return (touched(sensor) != previous(sensor));
 }
 
+/* KR: added this based on AP's State machine code below*/
+boolean MPR121::released(byte sensor) {
+  return (!(touchStates & (1 << sensor)) != 0) && (changed(sensor));
+}
+
 /*
  *  If currently touched, return the time touched so far, otherwise return
  * the total time from the last touch period.
